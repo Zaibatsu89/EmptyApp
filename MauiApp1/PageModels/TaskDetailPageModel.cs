@@ -16,24 +16,48 @@ namespace MauiApp1.PageModels
         private readonly ModalErrorHandler _errorHandler;
         private readonly IDialogService _dialogService;
 
-        [ObservableProperty]
         private string _title = string.Empty;
-
-        [ObservableProperty]
         private bool _isCompleted;
-
-        [ObservableProperty]
         private List<Project> _projects = [];
-
-        [ObservableProperty]
         private Project? _project;
-
-        [ObservableProperty]
         private int _selectedProjectIndex = -1;
-
-
-        [ObservableProperty]
         private bool _isExistingProject;
+
+        public string Title
+        {
+            get => _title;
+            set => SetProperty(ref _title, value);
+        }
+
+        public bool IsCompleted
+        {
+            get => _isCompleted;
+            set => SetProperty(ref _isCompleted, value);
+        }
+
+        public List<Project> Projects
+        {
+            get => _projects;
+            set => SetProperty(ref _projects, value);
+        }
+
+        public Project? Project
+        {
+            get => _project;
+            set => SetProperty(ref _project, value);
+        }
+
+        public int SelectedProjectIndex
+        {
+            get => _selectedProjectIndex;
+            set => SetProperty(ref _selectedProjectIndex, value);
+        }
+
+        public bool IsExistingProject
+        {
+            get => _isExistingProject;
+            set => SetProperty(ref _isExistingProject, value);
+        }
 
         public TaskDetailPageModel(ProjectRepository projectRepository, TaskRepository taskRepository, ModalErrorHandler errorHandler, IDialogService dialogService)
         {

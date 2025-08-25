@@ -14,34 +14,15 @@ namespace MauiApp1.PageModels
         private readonly ModalErrorHandler _errorHandler;
         private readonly IDialogService _dialogService;
 
-        [ObservableProperty]
         private string _name = string.Empty;
-
-        [ObservableProperty]
         private string _description = string.Empty;
-
-        [ObservableProperty]
         private List<ProjectTask> _tasks = [];
-
-        [ObservableProperty]
         private List<Category> _categories = [];
-
-        [ObservableProperty]
         private Category? _category;
-
-        [ObservableProperty]
         private int _categoryIndex = -1;
-
-        [ObservableProperty]
         private List<Tag> _allTags = [];
-
-        [ObservableProperty]
         private IconData _icon;
-
-        [ObservableProperty]
-        bool _isBusy;
-
-        [ObservableProperty]
+        private bool _isBusy;
         private List<IconData> _icons = new List<IconData>
         {
             new IconData { Icon = FluentUI.ribbon_24_regular, Description = "Ribbon Icon" },
@@ -52,6 +33,66 @@ namespace MauiApp1.PageModels
             new IconData { Icon = FluentUI.people_24_regular, Description = "People Icon" },
             new IconData { Icon = FluentUI.bot_24_regular, Description = "Bot Icon" }
         };
+
+        public string Name
+        {
+            get => _name;
+            set => SetProperty(ref _name, value);
+        }
+
+        public string Description
+        {
+            get => _description;
+            set => SetProperty(ref _description, value);
+        }
+
+        public List<ProjectTask> Tasks
+        {
+            get => _tasks;
+            set => SetProperty(ref _tasks, value);
+        }
+
+        public List<Category> Categories
+        {
+            get => _categories;
+            set => SetProperty(ref _categories, value);
+        }
+
+        public Category? Category
+        {
+            get => _category;
+            set => SetProperty(ref _category, value);
+        }
+
+        public int CategoryIndex
+        {
+            get => _categoryIndex;
+            set => SetProperty(ref _categoryIndex, value);
+        }
+
+        public List<Tag> AllTags
+        {
+            get => _allTags;
+            set => SetProperty(ref _allTags, value);
+        }
+
+        public IconData Icon
+        {
+            get => _icon;
+            set => SetProperty(ref _icon, value);
+        }
+
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set => SetProperty(ref _isBusy, value);
+        }
+
+        public List<IconData> Icons
+        {
+            get => _icons;
+            set => SetProperty(ref _icons, value);
+        }
 
         public bool HasCompletedTasks
             => _project?.Tasks.Any(t => t.IsCompleted) ?? false;

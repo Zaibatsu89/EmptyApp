@@ -14,11 +14,20 @@ namespace MauiApp1.PageModels
         private readonly SeedDataService _seedDataService;
         private readonly IDialogService _dialogService;
 
-        [ObservableProperty]
         private ObservableCollection<Category> _categories = [];
-
-        [ObservableProperty]
         private ObservableCollection<Tag> _tags = [];
+
+        public ObservableCollection<Category> Categories
+        {
+            get => _categories;
+            set => SetProperty(ref _categories, value);
+        }
+
+        public ObservableCollection<Tag> Tags
+        {
+            get => _tags;
+            set => SetProperty(ref _tags, value);
+        }
 
         public ManageMetaPageModel(CategoryRepository categoryRepository, TagRepository tagRepository, SeedDataService seedDataService, IDialogService dialogService)
         {

@@ -15,26 +15,55 @@ namespace MauiApp1.PageModels
         private readonly SeedDataService _seedDataService;
         private readonly IDialogService _dialogService;
 
-        [ObservableProperty]
         private List<CategoryChartData> _todoCategoryData = [];
-
-        [ObservableProperty]
         private List<Brush> _todoCategoryColors = [];
-
-        [ObservableProperty]
         private List<ProjectTask> _tasks = [];
-
-        [ObservableProperty]
         private List<Project> _projects = [];
-
-        [ObservableProperty]
-        bool _isBusy;
-
-        [ObservableProperty]
-        bool _isRefreshing;
-
-        [ObservableProperty]
+        private bool _isBusy;
+        private bool _isRefreshing;
         private string _today = DateTime.Now.ToString("dddd, MMM d");
+
+        public List<CategoryChartData> TodoCategoryData
+        {
+            get => _todoCategoryData;
+            set => SetProperty(ref _todoCategoryData, value);
+        }
+
+        public List<Brush> TodoCategoryColors
+        {
+            get => _todoCategoryColors;
+            set => SetProperty(ref _todoCategoryColors, value);
+        }
+
+        public List<ProjectTask> Tasks
+        {
+            get => _tasks;
+            set => SetProperty(ref _tasks, value);
+        }
+
+        public List<Project> Projects
+        {
+            get => _projects;
+            set => SetProperty(ref _projects, value);
+        }
+
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set => SetProperty(ref _isBusy, value);
+        }
+
+        public bool IsRefreshing
+        {
+            get => _isRefreshing;
+            set => SetProperty(ref _isRefreshing, value);
+        }
+
+        public string Today
+        {
+            get => _today;
+            set => SetProperty(ref _today, value);
+        }
 
         public bool HasCompletedTasks
             => Tasks?.Any(t => t.IsCompleted) ?? false;

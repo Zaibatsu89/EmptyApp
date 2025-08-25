@@ -11,8 +11,13 @@ namespace MauiApp1.PageModels
     {
         private readonly ProjectRepository _projectRepository;
 
-        [ObservableProperty]
         private List<Project> _projects = [];
+
+        public List<Project> Projects
+        {
+            get => _projects;
+            set => SetProperty(ref _projects, value);
+        }
 
         public ProjectListPageModel(ProjectRepository projectRepository)
         {
