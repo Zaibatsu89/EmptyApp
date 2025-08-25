@@ -37,6 +37,7 @@ namespace MauiApp1
             builder.Services.AddSingleton<CategoryRepository>();
             builder.Services.AddSingleton<TagRepository>();
             builder.Services.AddSingleton<SeedDataService>();
+            builder.Services.AddSingleton<IDialogService, DialogService>();
             builder.Services.AddSingleton<ModalErrorHandler>();
             builder.Services.AddSingleton<MainPageModel>();
             builder.Services.AddSingleton<ProjectListPageModel>();

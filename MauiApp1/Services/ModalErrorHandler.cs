@@ -5,7 +5,12 @@ namespace MauiApp1.Services
     /// </summary>
     public class ModalErrorHandler : IErrorHandler
     {
-        SemaphoreSlim _semaphore = new(1, 1);
+        private readonly IDialogService _dialogService;
+
+        public ModalErrorHandler(IDialogService dialogService)
+        {
+            _dialogService = dialogService;
+        }
 
         /// <summary>
         /// Handle error in UI.
@@ -18,16 +23,7 @@ namespace MauiApp1.Services
 
         async Task DisplayAlert(Exception ex)
         {
-            try
-            {
-                await _semaphore.WaitAsync();
-                if (Shell.Current is Shell shell)
-                    await shell.DisplayAlert("Error", ex.Message, "OK");
-            }
-            finally
-            {
-                _semaphore.Release();
-            }
+            await _dialogService.DisplayAlertAsync("Error", ex.Message, "OK");
         }
     }
 }

@@ -12,6 +12,7 @@ namespace MauiApp1.PageModels
         private readonly CategoryRepository _categoryRepository;
         private readonly TagRepository _tagRepository;
         private readonly ModalErrorHandler _errorHandler;
+        private readonly IDialogService _dialogService;
 
         [ObservableProperty]
         private string _name = string.Empty;
@@ -55,13 +56,14 @@ namespace MauiApp1.PageModels
         public bool HasCompletedTasks
             => _project?.Tasks.Any(t => t.IsCompleted) ?? false;
 
-        public ProjectDetailPageModel(ProjectRepository projectRepository, TaskRepository taskRepository, CategoryRepository categoryRepository, TagRepository tagRepository, ModalErrorHandler errorHandler)
+        public ProjectDetailPageModel(ProjectRepository projectRepository, TaskRepository taskRepository, CategoryRepository categoryRepository, TagRepository tagRepository, ModalErrorHandler errorHandler, IDialogService dialogService)
         {
             _projectRepository = projectRepository;
             _taskRepository = taskRepository;
             _categoryRepository = categoryRepository;
             _tagRepository = tagRepository;
             _errorHandler = errorHandler;
+            _dialogService = dialogService;
             _icon = _icons.First();
             Tasks = [];
         }
@@ -195,7 +197,7 @@ namespace MauiApp1.PageModels
             }
 
             await Shell.Current.GoToAsync("..");
-            await AppShell.DisplayToastAsync("Project saved");
+            await _dialogService.DisplayAlertAsync("Success", "Project saved successfully!", "OK");
         }
 
         [RelayCommand]
@@ -226,9 +228,17 @@ namespace MauiApp1.PageModels
                 return;
             }
 
+            var confirmed = await _dialogService.DisplayDeleteConfirmationAsync(
+                "Delete Project", 
+                "Are you sure you want to delete this project? This will also delete all associated tasks.", 
+                _project.Name);
+
+            if (!confirmed)
+                return;
+
             await _projectRepository.DeleteItemAsync(_project);
             await Shell.Current.GoToAsync("..");
-            await AppShell.DisplayToastAsync("Project deleted");
+            await _dialogService.DisplayAlertAsync("Success", "Project deleted successfully!", "OK");
         }
 
         [RelayCommand]
@@ -259,6 +269,21 @@ namespace MauiApp1.PageModels
         private async Task CleanTasks()
         {
             var completedTasks = Tasks.Where(t => t.IsCompleted).ToArray();
+            
+            if (completedTasks.Length == 0)
+            {
+                await _dialogService.DisplayAlertAsync("No Tasks", "There are no completed tasks to clean up.", "OK");
+                return;
+            }
+
+            var confirmed = await _dialogService.DisplayAlertAsync(
+                "Clean Completed Tasks", 
+                $"Are you sure you want to delete {completedTasks.Length} completed task(s)?", 
+                "Clean", "Cancel");
+
+            if (!confirmed)
+                return;
+
             foreach (var task in completedTasks)
             {
                 await _taskRepository.DeleteItemAsync(task);
@@ -267,7 +292,7 @@ namespace MauiApp1.PageModels
 
             Tasks = new(Tasks);
             OnPropertyChanged(nameof(HasCompletedTasks));
-            await AppShell.DisplayToastAsync("All cleaned up!");
+            await _dialogService.DisplayAlertAsync("Success", $"Cleaned up {completedTasks.Length} completed task(s)!", "OK");
         }
     }
 }

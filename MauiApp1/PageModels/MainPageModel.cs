@@ -13,6 +13,7 @@ namespace MauiApp1.PageModels
         private readonly CategoryRepository _categoryRepository;
         private readonly ModalErrorHandler _errorHandler;
         private readonly SeedDataService _seedDataService;
+        private readonly IDialogService _dialogService;
 
         [ObservableProperty]
         private List<CategoryChartData> _todoCategoryData = [];
@@ -39,13 +40,14 @@ namespace MauiApp1.PageModels
             => Tasks?.Any(t => t.IsCompleted) ?? false;
 
         public MainPageModel(SeedDataService seedDataService, ProjectRepository projectRepository,
-            TaskRepository taskRepository, CategoryRepository categoryRepository, ModalErrorHandler errorHandler)
+            TaskRepository taskRepository, CategoryRepository categoryRepository, ModalErrorHandler errorHandler, IDialogService dialogService)
         {
             _projectRepository = projectRepository;
             _taskRepository = taskRepository;
             _categoryRepository = categoryRepository;
             _errorHandler = errorHandler;
             _seedDataService = seedDataService;
+            _dialogService = dialogService;
         }
 
         private async Task LoadData()
@@ -160,6 +162,21 @@ namespace MauiApp1.PageModels
         private async Task CleanTasks()
         {
             var completedTasks = Tasks.Where(t => t.IsCompleted).ToList();
+            
+            if (completedTasks.Count == 0)
+            {
+                await _dialogService.DisplayAlertAsync("No Tasks", "There are no completed tasks to clean up.", "OK");
+                return;
+            }
+
+            var confirmed = await _dialogService.DisplayAlertAsync(
+                "Clean Completed Tasks", 
+                $"Are you sure you want to delete {completedTasks.Count} completed task(s)?", 
+                "Clean", "Cancel");
+
+            if (!confirmed)
+                return;
+
             foreach (var task in completedTasks)
             {
                 await _taskRepository.DeleteItemAsync(task);
@@ -168,7 +185,7 @@ namespace MauiApp1.PageModels
 
             OnPropertyChanged(nameof(HasCompletedTasks));
             Tasks = new(Tasks);
-            await AppShell.DisplayToastAsync("All cleaned up!");
+            await _dialogService.DisplayAlertAsync("Success", $"Cleaned up {completedTasks.Count} completed task(s)!", "OK");
         }
     }
 }

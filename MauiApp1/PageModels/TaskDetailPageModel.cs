@@ -14,6 +14,7 @@ namespace MauiApp1.PageModels
         private readonly ProjectRepository _projectRepository;
         private readonly TaskRepository _taskRepository;
         private readonly ModalErrorHandler _errorHandler;
+        private readonly IDialogService _dialogService;
 
         [ObservableProperty]
         private string _title = string.Empty;
@@ -34,11 +35,12 @@ namespace MauiApp1.PageModels
         [ObservableProperty]
         private bool _isExistingProject;
 
-        public TaskDetailPageModel(ProjectRepository projectRepository, TaskRepository taskRepository, ModalErrorHandler errorHandler)
+        public TaskDetailPageModel(ProjectRepository projectRepository, TaskRepository taskRepository, ModalErrorHandler errorHandler, IDialogService dialogService)
         {
             _projectRepository = projectRepository;
             _taskRepository = taskRepository;
             _errorHandler = errorHandler;
+            _dialogService = dialogService;
         }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -142,12 +144,10 @@ namespace MauiApp1.PageModels
                 Project.Tasks.Add(_task);
 
             if (_task.ProjectID > 0)
-                _taskRepository.SaveItemAsync(_task).FireAndForgetSafeAsync(_errorHandler);
+                await _taskRepository.SaveItemAsync(_task);
 
             await Shell.Current.GoToAsync("..?refresh=true");
-
-            if (_task.ID > 0)
-                await AppShell.DisplayToastAsync("Task saved");
+            await _dialogService.DisplayAlertAsync("Success", "Task saved successfully!", "OK");
         }
 
         [RelayCommand(CanExecute = nameof(CanDelete))]
@@ -160,6 +160,14 @@ namespace MauiApp1.PageModels
 
                 return;
             }
+
+            var confirmed = await _dialogService.DisplayDeleteConfirmationAsync(
+                "Delete Task", 
+                "Are you sure you want to delete this task?", 
+                _task.Title);
+
+            if (!confirmed)
+                return;
 
             if (Project.Tasks.Contains(_task))
                 Project.Tasks.Remove(_task);
