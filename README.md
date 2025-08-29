@@ -1,6 +1,6 @@
 # EmptyApp
 
-A .NET MAUI application built with .NET 10.
+A .NET MAUI solution built with .NET 10.
 
 ## Requirements
 
@@ -15,7 +15,7 @@ A .NET MAUI application built with .NET 10.
    dotnet --list-sdks
    ```
 
-2. Clone the repository and navigate to the project:
+2. Clone the repository and navigate to a project, e.g. MauiApp1/MauiApp2/MauiApp3:
    ```bash
    cd MauiApp1
    ```
@@ -47,7 +47,7 @@ A .NET MAUI application built with .NET 10.
 
 ## Project Structure
 
-- **MauiApp1.csproj**: Main project file targeting .NET 10
+- **MauiApp1.csproj / MauiApp2.csproj / MauiApp3.csproj**: Project files targeting .NET 10
 - **Platforms/**: Platform-specific code for Windows, Android, iOS, and MacCatalyst
 - **Pages/**: XAML pages for the user interface
 - **PageModels/**: ViewModels using CommunityToolkit.Mvvm
@@ -65,6 +65,6 @@ A .NET MAUI application built with .NET 10.
 
 ## Notes
 
-- This project uses .NET 10 Preview, which is the latest version of .NET
+- This solution uses .NET 10 Preview, which is the latest version of .NET
 - Some warnings may appear during build related to AOT compatibility in WinRT scenarios
 - The application supports multiple platforms: Windows, Android, iOS, and MacCatalyst

@@ -1,7 +1,7 @@
 #!/usr/bin/env pwsh
 
 # Build script for .NET 10 MAUI applications
-# This script builds both MauiApp1 and MauiApp2 for all supported platforms
+# This script builds MauiApp1, MauiApp2, and MauiApp3 for all supported platforms
 
 param(
     [string]$Configuration = "Debug",
@@ -82,10 +82,12 @@ function Test-Project {
     }
 }
 
-# Build both projects
+# Build projects
 $mauiApp1Success = Build-Project "MauiApp1" "MauiApp1"
 Set-Location ".."
 $mauiApp2Success = Build-Project "MauiApp2" "MauiApp2"
+Set-Location ".."
+$mauiApp3Success = Build-Project "MauiApp3" "MauiApp3"
 Set-Location ".."
 
 # Summary
@@ -102,15 +104,22 @@ if ($mauiApp2Success) {
     Write-Host "MauiApp2: FAILED" -ForegroundColor Red
 }
 
+if ($mauiApp3Success) {
+    Write-Host "MauiApp3: SUCCESS" -ForegroundColor Green
+} else {
+    Write-Host "MauiApp3: FAILED" -ForegroundColor Red
+}
+
 # Run tests if requested
-if ($Test -and $mauiApp1Success -and $mauiApp2Success) {
+if ($Test -and $mauiApp1Success -and $mauiApp2Success -and $mauiApp3Success) {
     Write-Host "`n=== Running Application Tests ===" -ForegroundColor Green
     Test-Project "MauiApp1" "MauiApp1"
     Test-Project "MauiApp2" "MauiApp2"
+    Test-Project "MauiApp3" "MauiApp3"
 }
 
 # Final status
-if ($mauiApp1Success -and $mauiApp2Success) {
+if ($mauiApp1Success -and $mauiApp2Success -and $mauiApp3Success) {
     Write-Host "`nAll builds completed successfully!" -ForegroundColor Green
     Write-Host "Both applications are now running on .NET 10!" -ForegroundColor Green
     exit 0
