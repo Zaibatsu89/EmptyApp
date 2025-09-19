@@ -2,9 +2,10 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-using Xamarin.Forms;
-
 using XamarinApp1.Models;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui;
 
 namespace XamarinApp1.ViewModels
 {

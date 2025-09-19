@@ -1,10 +1,11 @@
 ﻿using System;
-
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+using Microsoft.Maui.Controls.Xaml;
 
 using XamarinApp1.Services;
 using XamarinApp1.Views;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui;
 
 namespace XamarinApp1
 {

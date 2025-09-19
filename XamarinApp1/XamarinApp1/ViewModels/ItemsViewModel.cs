@@ -3,10 +3,11 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-using Xamarin.Forms;
-
 using XamarinApp1.Models;
 using XamarinApp1.Views;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui;
 
 namespace XamarinApp1.ViewModels
 {

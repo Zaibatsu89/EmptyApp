@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Xamarin.Forms;
-
 using XamarinApp1.ViewModels;
 using XamarinApp1.Views;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui;
 
 namespace XamarinApp1
 {
-    public partial class AppShell : Xamarin.Forms.Shell
+    public partial class AppShell : Microsoft.Maui.Controls.Shell
     {
         public AppShell()
         {

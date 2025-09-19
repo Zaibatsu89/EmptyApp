@@ -1,6 +1,6 @@
 # EmptyApp
 
-A .NET MAUI solution built with .NET 10. Includes a legacy Xamarin.Forms project.
+A .NET MAUI solution built with .NET 10. Includes a .NET MAUI project migrated from Xamarin.Forms.
 
 ## Requirements
 
@@ -47,8 +47,7 @@ A .NET MAUI solution built with .NET 10. Includes a legacy Xamarin.Forms project
 
 ## Project Structure
 
-- **MauiApp1.csproj / MauiApp2.csproj / MauiApp3.csproj**: Project files targeting .NET 10
-- **XamarinApp1.csproj**: Legacy Xamarin.Forms project
+- **MauiApp1.csproj / MauiApp2.csproj / MauiApp3.csproj / XamarinApp1.csproj**: Project files targeting .NET 10 (MauiApp1/2/3) and .NET 9 (XamarinApp1, migrated from Xamarin.Forms)
 - **Platforms/**: Platform-specific code for Windows, Android, iOS, and MacCatalyst
 - **Pages/**: XAML pages for the user interface
 - **PageModels/**: ViewModels using CommunityToolkit.Mvvm
@@ -66,7 +65,7 @@ A .NET MAUI solution built with .NET 10. Includes a legacy Xamarin.Forms project
 
 ## Notes
 
-- This solution uses .NET 10 Preview, which is the latest version of .NET
+- This solution uses .NET 10 Preview for MauiApp1/2/3 and .NET 9 for XamarinApp1 (migrated from Xamarin.Forms)
 - Some warnings may appear during build related to AOT compatibility in WinRT scenarios
 - The application supports multiple platforms: Windows, Android, iOS, and MacCatalyst
-- `XamarinApp1` is a legacy Xamarin.Forms project included for compatibility/reference
+- `XamarinApp1` has been migrated from Xamarin.Forms to .NET MAUI/.NET 9
