@@ -40,15 +40,12 @@ A .NET MAUI solution built with .NET 10. Includes .NET MAUI projects migrated fr
    
    # For iOS (requires macOS)
    dotnet run --framework net10.0-ios
-   
-   # For MacCatalyst (requires macOS)
-   dotnet run --framework net10.0-maccatalyst
    ```
 
 ## Project Structure
 
-- **MauiApp1.csproj / MauiApp2.csproj / MauiApp3.csproj / XamarinApp1.csproj / XamarinApp2.csproj**: Project files targeting .NET 10 (MauiApp1/2/3) and .NET 9 (XamarinApp1/XamarinApp2, migrated from Xamarin.Forms)
-- **Platforms/**: Platform-specific code for Windows, Android, iOS, and MacCatalyst
+- **MauiApp1.csproj / MauiApp2.csproj / MauiApp3.csproj / XamarinApp1.csproj / XamarinApp2.csproj / XamarinApp3.csproj**: Project files targeting .NET 10 (MauiApp1/2/3) and .NET 9 (XamarinApp1/2/3, migrated from Xamarin.Forms)
+- **Platforms/**: Platform-specific code for Windows, Android, and iOS
 - **Pages/**: XAML pages for the user interface
 - **PageModels/**: ViewModels using CommunityToolkit.Mvvm
 - **Services/**: Business logic and data services
@@ -65,7 +62,7 @@ A .NET MAUI solution built with .NET 10. Includes .NET MAUI projects migrated fr
 
 ## Notes
 
-- This solution uses .NET 10 Preview for MauiApp1/2/3 and .NET 9 for XamarinApp1/XamarinApp2 (migrated from Xamarin.Forms)
+- This solution uses .NET 10 Preview for MauiApp1/2/3 and .NET 9 for XamarinApp1/2/3 (migrated from Xamarin.Forms)
 - Some warnings may appear during build related to AOT compatibility in WinRT scenarios
-- The application supports multiple platforms: Windows, Android, iOS, and MacCatalyst
-- `XamarinApp1` and `XamarinApp2` have been migrated from Xamarin.Forms to .NET MAUI/.NET 9
+- The application supports multiple platforms: Windows, Android, and iOS
+- `XamarinApp1`, `XamarinApp2` and `XamarinApp3` have been migrated from Xamarin.Forms to .NET MAUI/.NET 9
